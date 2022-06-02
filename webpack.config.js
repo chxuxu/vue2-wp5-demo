@@ -7,7 +7,8 @@ const svrPort=92;
 const packageName = require('./package.json').name;
 module.exports = {
   entry: {
-    index:"./src/pages/index.js",
+    index:"./src/pages/index/index.js",
+    login:"./src/pages/login/index.js",
   },
   mode: 'development',
   module: {
@@ -71,7 +72,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".js", ".ts"],
+    extensions: [".js", ".ts",".vue"],
     alias: {
       '$assets': path.resolve(__dirname, './src/assets'),
     }
@@ -98,11 +99,19 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template:"src/pages/index.html",
+      template:"src/pages/index/index.html",
       publicPath:"/",//输出静态页面页面的资源文件的前缀,
       filename: "index.html",
       inject: "body",
       chunks: ['index'],
+      scriptLoading: "blocking"
+    }),
+    new HtmlWebpackPlugin({
+      template:"src/pages/login/index.html",
+      publicPath:"/",//输出静态页面页面的资源文件的前缀,
+      filename: "/login/index.html",
+      inject: "body",
+      chunks: ['login'],
       scriptLoading: "blocking"
     }),
     // 请确保引入这个插件！
